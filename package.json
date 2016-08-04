@@ -10,11 +10,13 @@
   "license": "MIT",
   "scripts": {
     "start": "node src/server/server.js",
-    "test": "grunt test"
+    "test": "mocha"
   },
   "dependencies": {
     "body-parser": "^1.15.2",
+    "chai": "^3.5.0",
     "express": "^4.14.0",
+    "mocha": "^3.0.0",
     "mongoose": "^4.5.8"
   }
 }
