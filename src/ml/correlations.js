@@ -3,6 +3,7 @@
  *  - invert sparse data to find correlations with things NOT happening
  *  - somehow find a way to be sensitive to time delays, perhaps? not sure
  *  - generate 'feature pairs' - maybe correlate only with things happening together
+ *  - be sensitive to how many times an activity is done (same day? each week?)
  */
 
 function findCorrelations (user, target) {
