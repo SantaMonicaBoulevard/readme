@@ -14,10 +14,10 @@ app.use(express.static(path.join(__dirname, '/../client')));
 //Routes
 //
 app.route('/user')
-  //Add a user.
+  // Add a user, or find.
   .post(function(req, res) {
 
-    User.newUser(req.body.email,req.body.firstname,req.body.lastname)
+    User.findOrCreateUser(req.body.email,req.body.firstname,req.body.lastname)
       .then(function(user) {
         var adding = JSON.stringify(user);
         res.status(201).send(adding);
@@ -25,12 +25,29 @@ app.route('/user')
       .catch(function(err) {
         console.error(err,'Error adding user');
       });
+  })
+  .delete(function(req, res) {
+
+    User.removeUser(req.body.email)
+      .then(function(user) {
+        var userString = JSON.stringify(user);
+        res.send(userString);
+      })
+      .catch(function(err) {
+        console.error(err, 'Error removing user');
+      })
   });
 
-// find user by email
-app.route('/user/email')
+// Activity routes.
+app.route('/user/activity')
   .post(function(req, res) {
-    User.findUser(req.body.email)
+    var activity = req.body.activity;
+    var date = Date();
+
+    User.findOrCreateUser(req.body.email,req.body.firstname,req.body.lastname)
+      .then(function(user) {
+        return user.addActivity(activity,date);
+      })
       .then(function(user) {
         var userString = JSON.stringify(user);
         res.send(userString);
@@ -40,18 +57,51 @@ app.route('/user/email')
       });
   })
   .delete(function(req, res) {
-    console.log(req.body.email,'delete request data');
-    User.removeUser(req.body.email)
+    var activity = req.body.activity;
+    var date = Date();
+
+    User.findOrCreateUser(req.body.email,req.body.firstname,req.body.lastname)
+        .then(function (user) {
+          return user.deleteActivity(activity, date);
+        })
+        .then(function(user) {
+          var userString = JSON.stringify(user);
+          res.send(userString);
+        });
+  });
+
+
+  // Metric Routes.
+  app.route('/user/metric')
+  .post(function(req, res) {
+    var metric = req.body.metric;
+    var date = Date();
+
+    User.findOrCreateUser(req.body.email,req.body.firstname,req.body.lastname)
+      .then(function(user) {
+        return user.addMetric(metric,date);
+      })
       .then(function(user) {
         var userString = JSON.stringify(user);
-        console.log(userString);
         res.send(userString);
       })
       .catch(function(err) {
-        console.error(err, 'Error removing user');
-      })
+        console.error(err,'Error finding user');
+      });
   })
+  .delete(function(req, res) {
+    var metric = req.body.metric;
+    var date = Date();
 
+    User.findOrCreateUser(req.body.email,req.body.firstname,req.body.lastname)
+        .then(function (user) {
+          return user.deleteActivity(metric, date);
+        })
+        .then(function(user) {
+          var userString = JSON.stringify(user);
+          res.send(userString);
+        });
+  });
 
 
 //User specific, by id

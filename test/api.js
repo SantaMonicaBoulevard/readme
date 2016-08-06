@@ -36,6 +36,7 @@ describe('RESTful API', function () {
     return userController.removeUser(newUser.email);
   });
 
+  //User tests.
   describe('POST', function () {
 
     it('responds with a 201 (Created) when a valid user is sent', function (done) {
@@ -49,18 +50,35 @@ describe('RESTful API', function () {
 
   });
 
-  describe('POST',  function() {
+  describe('DELETE',  function() {
 
-    it('responds with a 200 when finding a valid user from an email address', function(done) {
+    it('responds with a 200 when finding deleting a user from an email address', function(done) {
 
       request
-        .post('/user/email')
+        .delete('/user')
         .set('Accept', "application/x-www-form-urlencoded")
         .send({email: 'shmoe@test.com'})
+        .expect(200, done);
+    });
+  });
+
+  // Activities tests
+  describe('POST',  function() {
+
+    it('responds with a 200 when adding an activity', function(done) {
+
+      newUser.activity = 'ran';
+      newUser.day = testDate
+
+
+      request
+        .post('/user/activity')
+        .set('Accept', "application/x-www-form-urlencoded")
+        .send(newUser)
         .expect(200)
         .end(function(err, data) {
           var parsedData = JSON.parse(data.text);
-          expect(parsedData.email).to.equal('shmoe@test.com');
+          expect(parsedData.days[0].activities[0]).to.equal("ran");
           done();
         });
     });
@@ -68,14 +86,81 @@ describe('RESTful API', function () {
 
   describe('DELETE',  function() {
 
-    it('responds with a 200 when finding deleting a user from an email address', function(done) {
+    it('responds with a 200 when deleting an activity', function(done) {
+
+      newUser.activity = "ran";
+      newUser.day = testDate
+
 
       request
-        .delete('/user/email')
+        .delete('/user/activity')
         .set('Accept', "application/x-www-form-urlencoded")
-        .send({email: 'shmoe@test.com'})
+        .send(newUser)
         .expect(200, done);
     });
   });
+
+
+// Metrics tests
+  describe('POST',  function() {
+
+    it('responds with a 200 when adding a metric', function(done) {
+
+      newUser.metric = 'headache';
+      newUser.day = testDate;
+
+
+      request
+        .post('/user/metric')
+        .set('Accept', "application/x-www-form-urlencoded")
+        .send(newUser)
+        .expect(200)
+        .end(function(err, data) {
+          var parsedData = JSON.parse(data.text);
+          expect(parsedData.days[0].metrics[0]).to.equal("headache");
+          done();
+        });
+    });
+  });
+
+  describe('DELETE',  function() {
+
+    it('responds with a 200 when deleting a metric', function(done) {
+
+      newUser.metric = 'headache';
+      newUser.day = testDate;
+
+      request
+        .delete('/user/metric')
+        .set('Accept', "application/x-www-form-urlencoded")
+        .send(newUser)
+        .expect(200, done);
+    });
+  });
+
+
+
+
+
+
+
+
+
+
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
