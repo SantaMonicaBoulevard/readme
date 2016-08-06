@@ -6,6 +6,29 @@
  *  - be sensitive to how many times an activity is done (same day? each week?)
  */
 
+function driftSearch (user, target, maxDrift) {
+  var drifts = [];
+  for (var x = 0; x <= maxDrift; x++) {
+    user.days = drift(user, x);
+    drifts.push(findCorrelations(user, target));
+  }
+  return drifts;
+}
+
+function drift (user, drift) {
+  // we shift the activities down (drift) and so we can
+  // re-evaluate correlations to see if there is a delay
+  var activities = user.days.map(function (day) {
+    return day.activities;
+  });
+
+  var days = user.days.slice(drift);
+  return days.map(function (day, index) {
+    day.activities = activities[index];
+    return day;
+  });
+}
+
 function findCorrelations (user, target) {
   // calculates the phi of every possible activity + target
   var activities = gatherActivities(user);
@@ -94,4 +117,7 @@ function count (user, activity, target, da, dt) {
   }, 0);
 }
 
-module.exports = findCorrelations;
+module.exports = {
+  findCorrelations: findCorrelations,
+  driftSearch: driftSearch 
+};
