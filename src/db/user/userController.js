@@ -1,5 +1,5 @@
 const User = require('./userModel');
-const findCorrelations = require('../../ml/correlations');
+const findCorrelations = require('../../ml/correlations').findCorrelations;
 
 function findOrCreateUser (email, firstname, lastname) {
   // use just the email to find them in case this is

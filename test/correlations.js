@@ -1,4 +1,5 @@
-var findCorrelations = require('../src/ml/correlations');
+var findCorrelations = require('../src/ml/correlations').findCorrelations;
+var driftSearch = require('../src/ml/correlations').driftSearch;
 var assert = require('chai').assert;
 
 var testUser = {
@@ -38,5 +39,11 @@ describe('correlations', function () {
     assert.isAbove(happy.filter(function (cor) {
       return 'sing' in cor;
     })[0].sing, .1);
+  });
+
+  describe('drift', function () {
+    it('should drift like tokyo', function () {
+      assert.isArray(driftSearch(user, 'headache', 2));
+    });
   });
 });
