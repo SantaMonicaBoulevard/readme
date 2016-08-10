@@ -88,6 +88,7 @@ User.prototype.saveJournal = function (journal, day) {
 
 User.prototype.findCorrelations = function (metric) {
   var user = this;
+  console.log(user);
   return new Promise(function (resolve) {
     resolve(findCorrelations(user, metric));
   });
