@@ -6,6 +6,7 @@
  */
 
 function findCorrelations (user, target) {
+  console.log(user);
   // calculates the phi of every possible activity + target
   var activities = gatherActivities(user);
   return activities.map(function (activity) {
@@ -26,6 +27,7 @@ function gatherActivities (user) {
 }
 
 function findCorrelation (user, activity, target) {
+  console.log(activity, target);
   // this is the 'correlation table'
   var yy;  // both target and activity present
   var nn;  // neither target nor activity present
@@ -48,17 +50,26 @@ function findCorrelation (user, activity, target) {
   ay = count(user, activity, target, 0, 1);
   an = count(user, activity, target, 0, -1);
 
+  console.log(yy, nn, yn, ny, ya, na, ay, an);
+
   // get phi formula numerator and denominator
   // given above variables
   var phiN = (yy * nn) - (yn * ny);
+  console.log(phiN);
   var phiD = Math.sqrt(ya * na * ay * an);
-  return phiD !== 0 ? phiN / phiD : 0;
+  console.log(phiD);
+  var result = phiD !== 0 ? phiN / phiD : 0;
+  console.log(result);
+  return result;
 }
 
 function count (user, activity, target, da, dt) {
   // generates a sum of the instances that meet the
   // given yes/no/any criteria
   return user.days.reduce(function (memo, day) {
+    console.log(day);
+    console.log(day.activities);
+    console.log(day.metrics);
     if (da === 1) {
       // the activity must be present
       if (day.activities.indexOf(activity) === -1) {
