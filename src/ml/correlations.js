@@ -55,8 +55,12 @@ function findCorrelation (user, activity, target) {
   // get phi formula numerator and denominator
   // given above variables
   var phiN = (yy * nn) - (yn * ny);
+  console.log(phiN);
   var phiD = Math.sqrt(ya * na * ay * an);
-  return phiD !== 0 ? phiN / phiD : 0;
+  console.log(phiD);
+  var result = phiD !== 0 ? phiN / phiD : 0;
+  console.log(result);
+  return result;
 }
 
 function count (user, activity, target, da, dt) {
