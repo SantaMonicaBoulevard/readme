@@ -129,6 +129,7 @@ app.route('/user/correlation')
 
     User.findOrCreateUser(req.body.email, req.body.firstname, req.body.lastname)
       .then(function (user) {
+        console.log(user);
         return user.findCorrelations(metric);
       })
       .then(function (array) {
