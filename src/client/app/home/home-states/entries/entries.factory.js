@@ -20,6 +20,5 @@
           $http.get('http://api.wunderground.com/api/921c08ecbdcbf50c/history_20100405/q/37.776289,-122.395234.json')
         }
       };
-
     }
   })();

@@ -3,9 +3,9 @@
   angular.module('app.home.entries', [])
     .controller('EntriesController', EntriesController);
 
-  EntriesController.$inject = ['$http', 'Home', 'store', 'Entries'];
+  EntriesController.$inject = ['$http', 'Home', 'store', 'Entries', '$scope', '$timeout'];
 
-  function EntriesController($http, Home, store, Entries) {
+  function EntriesController($http, Home, store, Entries, $scope, $timeout) {
     // jshint validthis: true
     var entries = this;
 
@@ -123,7 +123,7 @@
       })
       .then(function(resp) {
         console.log("Post Success! " + entries.activeField, resp)
-        Home.getUserData();
+        return Home.getUserData();
       }).then(function() {
         entries.popularAct = entries.sortKeys(store.get('userData').popularItems.act);
       }).then(function() {

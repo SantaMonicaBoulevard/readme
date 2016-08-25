@@ -14,7 +14,6 @@
       getDay: getDay,
       getUserData: getUserData,
       userLocation: userLocation
-      
     };
     return services;
 
@@ -43,6 +42,20 @@
         }
       }
     };
+
+    // var userData = {
+    //   userActivities: store.get('userData').userActivities,
+    //   userMetrics: store.get('userData').userMetrics
+    // };
+
+    // function userDataSetter() {
+      
+    //   var userActivities = store.get('userData').userActivities;
+    //   var userMetrics = store.get('userData').userMetrics;
+
+    //   services.userData.userActivities = userActivities;
+    //   services.userData.userMetrics = userMetrics;
+    // }
 
 
     var userLocation = {};
