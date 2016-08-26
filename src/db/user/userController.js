@@ -41,6 +41,7 @@ User.prototype.addActivity = function(activities, day, location) {
 
     if (foundDay.gotWeather === false) {
       var dateForWeather = foundDay.date.split('T')[0].split('-').join('');
+      console.log(dateForWeather)
 
       return user.getWeather(dateForWeather, location, activities, foundDay);
 

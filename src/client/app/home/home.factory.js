@@ -54,9 +54,10 @@
       }
     };
 
-    var date = {};
+    var date = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).toISOString()
 
     function dateSetter(value) {
+      console.log(value)
       services.date = value;
     }
 

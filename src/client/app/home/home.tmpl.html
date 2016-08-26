@@ -49,7 +49,7 @@
     <div layout='row' layout-xs='column'>
       <div ng-style="{visibility: home.displayDatePicker() ? 'visible' : 'hidden'}" class='date-picker' flex='30'>Enter data for:
         <form name='dateForm'>
-          <md-datepicker name='dateField' required ng-model="userDate" ng-change='home.dateSetter(userDate)' md-placeholder="Enter date"></md-datepicker>
+          <md-datepicker name='dateField' required ng-model="home.userDate" ng-change='home.dateSetter(userDate)' md-placeholder="Enter date"></md-datepicker>
           <div class="validation-messages" ng-messages="dateForm.dateField.$error">
              <div ng-message="valid">The entered value is not a date!</div>
              <div ng-message="required">A date is required!</div>
