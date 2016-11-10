@@ -6,6 +6,10 @@
     // jshint validthis: true
     var landing = this;
     landing.auth = auth;
+    landing.login = function() {
+      auth.signin({},function(){
+      });
+    }
   }
 
   function Auth(auth, $location) {

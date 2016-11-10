@@ -17,16 +17,19 @@
     function getUserData() {
       var profile = store.get('profile');
       return $http({
-        method: 'POST',
-        url: '/user',
-        data: {
-          email: profile.email,
-          firstname: profile.given_name,
-          lastname: profile.family_name
-        }
-      }).then(function(returnedData) {
-        store.set('userData', returnedData.data);
-      });
+          method: 'POST',
+          url: '/user',
+          data: {
+            email: profile.email,
+            firstname: profile.given_name,
+            lastname: profile.family_name
+          }
+        })
+        .then(function(returnedData) {
+          store.set('userData', returnedData.data);
+        }).then(function(returnedData) {
+          return returnedData;
+        });
     };
 
     function getDay(date) {
